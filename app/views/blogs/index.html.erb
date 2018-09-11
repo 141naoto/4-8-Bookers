@@ -1,0 +1,51 @@
+<% if flash[:notice] %>
+<div class="flash">
+	<%= flash[:notice] %>
+</div>
+<% end %>
+<div class="index">
+<h2>Books</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Body</th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
+
+	<% @blogs.reverse_each do |blog| %>
+	<tbody>
+		<tr>
+			<td><%= blog.title %>
+			</td>
+			<td><%= blog.body %>
+			</td>
+
+			<td><%= link_to "Show", blog_path(blog), class:"show_#{blog.id}" %>
+
+			<%= link_to "Edit", edit_blog_path(blog), class:"edit_#{blog.id}" %>
+
+			<%= link_to "Destroy", blog_path(blog), method: :delete, data: { confirm: "Are you sure?"}, class:"destroy_#{blog.id}"  %>
+			</td>
+		</tr>
+	</tbody>
+	<% end %>
+</table>
+
+<div class="createbook">
+<h3>New book</h3>
+<%= form_for(@blog) do |f| %>
+
+<h4>title</h4>
+<%= f.text_field :title, class: 'book_title' %>
+
+<h4>body</h4>
+<%= f.text_area :body, class:'book_body' %>
+
+<div class="createbook-button">
+<%= f.submit 'Create Book' %>
+</div>
+<% end %>
+</div>
+</div>
